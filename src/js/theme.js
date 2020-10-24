@@ -27,8 +27,8 @@ document.addEventListener('DOMContentLoaded', () => {
       localStorage.setItem('keyTheme', Theme.LIGHT);
     }
   });
-});
 
-if (getItemKeyTheme === Theme.DARK) {
-  refs.switchInput.checked = true;
-}
+  if (getItemKeyTheme === Theme.DARK) {
+    refs.switchInput.checked = true;
+  }
+});

@@ -3,18 +3,17 @@ const Theme = {
   DARK: 'dark-theme',
 };
 
-document.addEventListener('DOMContentLoaded', () => {
-  const refs = {
-    body: document.querySelector('body'),
-    switchInput: document.querySelector('.theme-switch__toggle'),
-  };
+const refs = {
+  body: document.querySelector('body'),
+  switchInput: document.querySelector('.theme-switch__toggle'),
+};
+const getItemKeyTheme = localStorage.getItem('keyTheme');
 
-  if (localStorage.getItem('keyTheme') === null) {
+document.addEventListener('DOMContentLoaded', () => {
+  if (getItemKeyTheme === null) {
     refs.body.classList.add(Theme.LIGHT);
-    refs.switchInput.checked = false;
   } else {
-    refs.body.classList.add(localStorage.getItem('keyTheme'));
-    refs.switchInput.checked = true;
+    refs.body.classList.add(getItemKeyTheme);
   }
 
   refs.switchInput.addEventListener('change', () => {
@@ -29,3 +28,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 });
+
+if (getItemKeyTheme === Theme.DARK) {
+  refs.switchInput.checked = true;
+}

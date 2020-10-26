@@ -7,16 +7,24 @@ const refs = {
   body: document.querySelector('body'),
   switchInput: document.querySelector('.theme-switch__toggle'),
 };
-const getItemKeyTheme = localStorage.getItem('keyTheme');
+
+let getItemKeyTheme = localStorage.getItem('keyTheme');
 
 document.addEventListener('DOMContentLoaded', () => {
-  if (getItemKeyTheme === null) {
+  if (!getItemKeyTheme) {
     refs.body.classList.add(Theme.LIGHT);
+    getItemKeyTheme = Theme.LIGHT;
   } else {
     refs.body.classList.add(getItemKeyTheme);
   }
 
-  refs.switchInput.addEventListener('change', () => {
+  if (getItemKeyTheme === Theme.DARK) {
+    refs.switchInput.checked = true;
+  } else {
+    getItemKeyTheme = false;
+  }
+
+  const changeHandler = () => {
     if (refs.body.classList.contains(Theme.LIGHT)) {
       refs.body.classList.remove(Theme.LIGHT);
       refs.body.classList.add(Theme.DARK);
@@ -26,9 +34,6 @@ document.addEventListener('DOMContentLoaded', () => {
       refs.body.classList.add(Theme.LIGHT);
       localStorage.setItem('keyTheme', Theme.LIGHT);
     }
-  });
-
-  if (getItemKeyTheme === Theme.DARK) {
-    refs.switchInput.checked = true;
-  }
+  };
+  refs.switchInput.addEventListener('change', changeHandler);
 });
